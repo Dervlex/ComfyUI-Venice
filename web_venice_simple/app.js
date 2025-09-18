@@ -244,6 +244,11 @@ function createNodeCard(nodeId, node, definition) {
     body.appendChild(details);
   }
 
+  const outputs = renderOutputs(definition);
+  if (outputs) {
+    body.appendChild(outputs);
+  }
+
   return card;
 }
 
@@ -296,6 +301,81 @@ function buildField(nodeId, node, fieldName, schema, groupName) {
   }
 
   return wrapper;
+}
+
+function renderOutputs(definition) {
+  const outputs = Array.isArray(definition?.output) ? definition.output : [];
+  if (outputs.length === 0) {
+    return null;
+  }
+
+  const names = Array.isArray(definition.output_name)
+    ? definition.output_name
+    : [];
+  const listFlags = Array.isArray(definition.output_is_list)
+    ? definition.output_is_list
+    : [];
+  const tooltips = Array.isArray(definition.output_tooltips)
+    ? definition.output_tooltips
+    : [];
+
+  const container = document.createElement("div");
+  container.className = "group outputs-group";
+  if (definition.output_node) {
+    container.dataset.terminal = "true";
+  }
+
+  const heading = document.createElement("div");
+  heading.className = "group-heading";
+  const headingText = definition.output_node
+    ? "Workflow-Ausgang"
+    : outputs.length > 1
+    ? "Ausgänge"
+    : "Ausgang";
+  heading.textContent = headingText;
+  container.appendChild(heading);
+
+  const list = document.createElement("ul");
+  list.className = "outputs-list";
+
+  outputs.forEach((type, index) => {
+    const item = document.createElement("li");
+    item.className = "outputs-list__item";
+
+    const topRow = document.createElement("div");
+    topRow.className = "outputs-list__row";
+
+    const name = document.createElement("span");
+    name.className = "outputs-list__name";
+    name.textContent = names[index] || `Ausgang ${index + 1}`;
+    topRow.appendChild(name);
+
+    const typeBadge = document.createElement("span");
+    typeBadge.className = "outputs-list__type";
+    typeBadge.textContent = type;
+    topRow.appendChild(typeBadge);
+
+    if (listFlags[index]) {
+      const listBadge = document.createElement("span");
+      listBadge.className = "outputs-list__flag";
+      listBadge.textContent = "Liste";
+      topRow.appendChild(listBadge);
+    }
+
+    item.appendChild(topRow);
+
+    const tooltip = tooltips[index];
+    if (tooltip) {
+      const hint = document.createElement("small");
+      hint.textContent = tooltip;
+      item.appendChild(hint);
+    }
+
+    list.appendChild(item);
+  });
+
+  container.appendChild(list);
+  return container;
 }
 
 function createControl(id, nodeId, fieldName, typeInfo, config, storedValue) {

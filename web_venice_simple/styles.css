@@ -215,6 +215,67 @@ button:hover {
   padding-top: 1rem;
 }
 
+.outputs-group {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.outputs-group[data-terminal="true"] .group-heading {
+  color: rgba(157, 255, 220, 0.9);
+}
+
+.outputs-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.outputs-list__item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  background: rgba(20, 24, 32, 0.85);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.outputs-list__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.outputs-list__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.outputs-list__type,
+.outputs-list__flag {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.outputs-list__flag {
+  border-color: rgba(255, 196, 120, 0.35);
+  background: rgba(255, 196, 120, 0.18);
+  color: rgba(255, 220, 170, 0.95);
+}
+
+.outputs-list__item small {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
 textarea#workflow-json {
   width: 100%;
   min-height: 260px;
