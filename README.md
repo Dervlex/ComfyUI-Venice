@@ -110,6 +110,36 @@ See what ComfyUI can do with the [example workflows](https://comfyanonymous.gith
 
 Workflow examples can be found on the [Examples page](https://comfyanonymous.github.io/ComfyUI_examples/)
 
+## Venice Simple UI
+
+The repository ships with a reduced frontend that focuses exclusively on adding
+nodes and queueing workflows. You can launch it with:
+
+```bash
+python main.py --front-end-root ./web_venice_simple
+```
+
+The simplified interface provides:
+
+- eine gefilterte Liste aller verfügbaren Nodes basierend auf den
+  Informationen von `/object_info`.
+- Inline-Formulare, um Eingabewerte pro Node zu pflegen – inklusive optionaler
+  Felder und Verbindungs-Slots.
+- Einen JSON-Editor zum Importieren, Bearbeiten und Exportieren kompletter
+  Workflows.
+- Direktes Ausführen des aktuellen Workflows über den bekannten
+  `/prompt`-Endpunkt.
+
+Zusätzlich stehen neue Platzhalter-Nodes zur Verfügung, die für kommende
+Integrationen vorgesehen sind:
+
+- `VeniceV2-Input` sammelt Bild, Prompt sowie Benutzer-, Workflow- und API-Key
+  Informationen und leitet sie unverändert weiter.
+- `VeniceV2-Output` dient als Abschlusspunkt, der dieselben Metadaten annimmt
+  und eine Statusnachricht generiert.
+- `FAL.ai-TextToImage` repräsentiert einen einfachen Prompt-basierten Knoten
+  mit auswählbaren FAL.ai-Modellen.
+
 ## Release Process
 
 ComfyUI follows a weekly release cycle targeting Friday but this regularly changes because of model releases or large changes to the codebase. There are three interconnected repositories:
