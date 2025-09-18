@@ -129,6 +129,8 @@ The simplified interface provides:
   Workflows.
 - Direktes Ausführen des aktuellen Workflows über den bekannten
   `/prompt`-Endpunkt.
+- Einen Umschalter zum vollwertigen Pipeline-Canvas inklusive Drag & Drop und
+  visuellen Verbindungen, der mit der vereinfachten Ansicht synchron bleibt.
 
 Zusätzlich stehen neue Platzhalter-Nodes zur Verfügung, die für kommende
 Integrationen vorgesehen sind:

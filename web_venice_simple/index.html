@@ -6,18 +6,30 @@
     <title>Venice Simple UI</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body data-view="simple">
+    <div id="loading-overlay" class="loading-overlay" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="loading-text">Lädt Venice UI…</span>
+    </div>
     <header class="app-header">
-      <h1>Venice Simple UI</h1>
-      <p>
-        Diese reduzierte Oberfläche fokussiert sich auf das Hinzufügen von Nodes
-        und das Ausführen eines Workflows. Verwende den Bereich unten, um neue
-        Nodes hinzuzufügen, Eingaben zu pflegen und den Aufbau als JSON zu
-        überprüfen.
-      </p>
+      <div class="app-header__brand">
+        <img src="logo.svg" alt="Venice Logo" class="app-logo" />
+        <div>
+          <h1>Venice Simple UI</h1>
+          <p>
+            Diese reduzierte Oberfläche fokussiert sich auf das Hinzufügen von Nodes
+            und das Ausführen eines Workflows. Verwende den Bereich unten, um neue
+            Nodes hinzuzufügen, Eingaben zu pflegen und den Aufbau als JSON zu
+            überprüfen.
+          </p>
+        </div>
+      </div>
+      <button id="toggle-view" class="view-toggle" type="button">
+        Pipeline UI anzeigen
+      </button>
     </header>
     <main>
-      <section class="panel">
+      <section class="panel panel--toolbar">
         <h2>Nodes hinzufügen</h2>
         <div class="node-toolbar">
           <label for="node-search" class="sr-only">Node-Suche</label>
@@ -38,24 +50,53 @@
         </div>
       </section>
 
-      <section class="panel">
-        <h2>Workflow</h2>
-        <div id="nodes-container" class="nodes-container"></div>
-      </section>
+      <div class="view-container">
+        <div class="view" data-view="simple">
+          <section class="panel">
+            <h2>Workflow</h2>
+            <div id="nodes-container" class="nodes-container"></div>
+          </section>
 
-      <section class="panel">
-        <h2>Workflow JSON</h2>
-        <p>
-          Der JSON-Inhalt lässt sich bearbeiten. Du kannst vorhandene Workflows
-          importieren oder exportieren. Beim Laden wird der Editor vollständig
-          ersetzt.
-        </p>
-        <textarea id="workflow-json" spellcheck="false"></textarea>
-        <div class="actions">
-          <button id="load-json">JSON laden</button>
-          <button id="download-json">JSON herunterladen</button>
+          <section class="panel">
+            <h2>Workflow JSON</h2>
+            <p>
+              Der JSON-Inhalt lässt sich bearbeiten. Du kannst vorhandene Workflows
+              importieren oder exportieren. Beim Laden wird der Editor vollständig
+              ersetzt.
+            </p>
+            <textarea id="workflow-json" spellcheck="false"></textarea>
+            <div class="actions">
+              <button id="load-json">JSON laden</button>
+              <button id="download-json">JSON herunterladen</button>
+            </div>
+          </section>
         </div>
-      </section>
+
+        <div class="view" data-view="pipeline" hidden>
+          <section class="panel">
+            <h2>Pipeline UI</h2>
+            <p>
+              Ziehe Nodes auf der Fläche, verbinde Ausgänge mit Eingängen und nutze die
+              gleichen Controls zum Ausführen. Änderungen werden sofort mit dem
+              einfachen UI synchronisiert.
+            </p>
+          </section>
+          <section class="panel pipeline-panel">
+            <div class="pipeline-toolbar">
+              <p>
+                Tipp: Klicke auf einen Ausgangsport und anschließend auf den gewünschten
+                Eingang, um eine Verbindung herzustellen. Ein erneuter Klick auf den
+                Eingang entfernt die Verbindung.
+              </p>
+              <button id="reset-layout" type="button">Layout zurücksetzen</button>
+            </div>
+            <div id="pipeline-canvas" class="pipeline-canvas">
+              <svg id="pipeline-connections" class="pipeline-connections" aria-hidden="true"></svg>
+              <p id="pipeline-empty" class="pipeline-empty">Noch keine Nodes platziert.</p>
+            </div>
+          </section>
+        </div>
+      </div>
     </main>
 
     <template id="node-template">
